@@ -1,4 +1,7 @@
+#common
+INIT_MESSAGE = "/start"
 START_MESSAGE = "Hello! Please, Log in!"
+
 OPERATOR_START = "Hello, operator"
 OPERATOR_CLIENT_REGISTRATION = "Input information of new client"
 OPERATOR_USER_REGISTRATION = "Input information of new system user"
@@ -24,3 +27,4 @@ DOCTOR_BUTTON_DELETE = "Delete medical history"
 #error
 INPUT_TEXT_ERROR = "Invalid input, try again"
 ID_ERROR = "This ID does not exist"
+USER_NOT_EXIST = "user not exist"
