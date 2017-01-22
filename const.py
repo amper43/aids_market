@@ -28,7 +28,26 @@ DOCTOR_BUTTON_SHOW_TEXT = "Show medical history of client"
 DOCTOR_BUTTON_NEW_TEXT = "Update medical history"
 DOCTOR_BUTTON_DELETE = "Delete medical history"
 
+#operator input
+REGISTRATION = "register"
+FIO = "input_client_name"
+AGE = "input_age"
+SUM = "input_pay"
+DELETE = "delete_profile"
+
+#doctor_input
+UPDATE_HISTORY = "rewrite_history"
+SHOW_HISTORY = "show_history"
+CREATE_HISTORY = "create_history"
+DELETE_HISTORY = "delete_history"
+
+#courier_input
+CHECK_MESSAGE ="check_news"
+SHOW_TIMETABLE = "show_plan"
+
+
 #error
 INPUT_TEXT_ERROR = "Invalid input, try again"
 ID_ERROR = "This ID does not exist"
 USER_NOT_EXIST = "user not exist"
+COMMAND_NOT_EXIST = "this command is not exist"
