@@ -42,9 +42,9 @@ class AIDS_bot(object):
 def login_dialog():
     user = yield START_MESSAGE
     user = user.text
-    if user in lis:
+    if user in USERS:
         yield "ok"
-    else yield "%s %s" % (user, USER_NOT_EXIST)
+    else: yield "%s %s" % (user, USER_NOT_EXIST)
 
 
 if __name__ == '__main__':

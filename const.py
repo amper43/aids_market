@@ -1,7 +1,11 @@
 #common
 INIT_MESSAGE = "/start"
 START_MESSAGE = "Hello! Please, Log in!"
+USERS = ['operator','doctor','courier','admin']
+NEW_TEXT_OK = "Client's  history stored"
+REGISTRATION_OK = "Success! New client is registered."
 
+#operator
 OPERATOR_START = "Hello, operator"
 OPERATOR_CLIENT_REGISTRATION = "Input information of new client"
 OPERATOR_USER_REGISTRATION = "Input information of new system user"
@@ -9,13 +13,13 @@ OPERATOR_REMOVING_PROFILE = "Enter ID profile you want to delete:"
 OPERATOR_FIO = "Input client's firstname and secondname: "
 OPERATOR_AGE =  "Input clinet's age: "
 OPERATOR_SUM =  "Input monthly payment client: "
+
+#doctor
 DOCTOR_START =  "Hello, doctor. Input ID of client: "
 DOCTOR_UPDATE_PROFILE = "Enter an updated medical history: "
 DOCTOR_VIEW_PROFILE  = "Medical history of the client"
-REGISTRATION_OK = "Success! New client is registered."
-UPDATE_TEXT_OK = "Medical history rewritten!"
-NEW_TEXT_OK = "Client's  history stored"
-USERS = ['operator','doctor','courier','admin']
+DOCTOR_UPDATE_TEXT_OK = "Medical history rewritten!"
+
 #operations
 OPERATOR_BUTTON_REG_CLIENT = "New client registration"
 OPERATOR_BUTTON_REG_COURIER = "New courier registration"
