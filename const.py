@@ -12,7 +12,7 @@ DOCTOR_VIEW_PROFILE  = "Medical history of the client"
 REGISTRATION_OK = "Success! New client is registered."
 UPDATE_TEXT_OK = "Medical history rewritten!"
 NEW_TEXT_OK = "Client's  history stored"
-
+USERS = ['operator','doctor','courier','admin']
 #operations
 OPERATOR_BUTTON_REG_CLIENT = "New client registration"
 OPERATOR_BUTTON_REG_COURIER = "New courier registration"
