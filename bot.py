@@ -7,6 +7,7 @@ from telegram.ext import MessageHandler
 from telegram.ext import Updater
 
 from const import *
+import dialogs
 
 class AIDS_bot(object):
 
@@ -16,10 +17,8 @@ class AIDS_bot(object):
         self.updater.dispatcher.add_handler(handler)
         self.handlers = collections.defaultdict(generator)
 
-
     def start(self):
         self.updater.start_polling()
-
 
     def handle_message(self, bot, update):
         chat_id = update.message.chat_id
@@ -39,16 +38,8 @@ class AIDS_bot(object):
         bot.sendMessage(chat_id=chat_id, text=answer)
 
 
-def login_dialog():
-    user = yield START_MESSAGE
-    user = user.text
-    if user in USERS:
-        yield "ok"
-    else: yield "%s %s" % (user, USER_NOT_EXIST)
-
-
 if __name__ == '__main__':
     log.basicConfig(level=log.DEBUG)
     token = '310046588:AAGqktDy4wf71g-wpZD_H84JTJLY7nOD9b8'
-    bot = AIDS_bot(token, login_dialog)
+    bot = AIDS_bot(token, dialogs.login_dialog)
     bot.start()
