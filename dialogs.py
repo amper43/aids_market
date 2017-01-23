@@ -34,12 +34,18 @@ def doctor():
     command = yield {'text': DOCTOR_START,
                      'reply_markup': ReplyKeyboardMarkup([[UPDATE_HISTORY], [DELETE_HISTORY],[SHOW_HISTORY],[CREATE_HISTORY]],
                                                          one_time_keyboard=True)}
-    if command.text == CREATE_HISTORY:
-        pass
+    if command.text == UPDATE_HISTORY:
+        yield _send(DOCTOR_UPDATE_PROFILE)
+    elif command.text == SHOW_HISTORY:
+        yield _send(DOCTOR_VIEW_PROFILE)
+    elif command.text == DELETE_HISTORY:
+        yield _send(DELETE_OK)
+    elif command.text == CREATE_HISTORY:
+        yield _send(CREATE_HISTORY)
     log.debug("COMMAND %s" % command)
 
 def courier():
-    pass
+    command = yield _send(START_COURIER, [[CHECK_MESSAGE], [SHOW_TIMETABLE]])
 
 def admin():
     pass

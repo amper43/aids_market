@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import collections
 import logging as log
+import os
 
 from telegram.ext import Filters
 from telegram.ext import MessageHandler
@@ -40,8 +41,12 @@ class AIDS_bot(object):
 
 if __name__ == '__main__':
     log.basicConfig(level=log.DEBUG)
-    f = open("token", 'r')
-    token = f.read()
-    token = token[:-1]
+
+
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    '''f = open(os.path.join(dir_path, 'token'), 'r')
+    token = f.read() #'310046588:AAGqktDy4wf71g-wpZD_H84JTJLY7nOD9b8'
+    token = token[:-1]'''
+    token = "305192768:AAG0pi3IiYQj6CVnFJ9QnBoTa9fGHHhppgY"
     bot = AIDS_bot(token)
     bot.start(dialogs.login_dialog)

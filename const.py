@@ -17,8 +17,10 @@ OPERATOR_SUM =  "Input monthly payment client: "
 #doctor
 DOCTOR_START =  "Hello, doctor. Input ID of client: "
 DOCTOR_UPDATE_PROFILE = "Enter an updated medical history: "
-DOCTOR_VIEW_PROFILE  = "Medical history of the client"
+DOCTOR_VIEW_PROFILE  = "Medical history of the client:"
 DOCTOR_UPDATE_TEXT_OK = "Medical history rewritten!"
+DELETE_OK = "History is deleted!"
+CREATE_HISTORY = "Please, input text of med history:"
 
 #operations
 OPERATOR_BUTTON_REG_CLIENT = "New client registration"
@@ -42,6 +44,7 @@ CREATE_HISTORY = "create_history"
 DELETE_HISTORY = "delete_history"
 
 #courier_input
+START_COURIER = "Hello, courier! Change variant in menu"
 CHECK_MESSAGE ="check_news"
 SHOW_TIMETABLE = "show_plan"
 
