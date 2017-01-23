@@ -5,8 +5,6 @@ from telegram import ReplyKeyboardMarkup
 from const import *
 from data.card import Card
 
-c = Card
-
 def _send(text, keyboard=None):
 
     if keyboard:
@@ -32,7 +30,7 @@ def operator():
         age = age.text
         mon_sum = yield _send(OPERATOR_SUM)
         mon_sum = mon_sum.text
-        card = Card(str(fio), str(age), str(mon_sum))
+        card = Card(fio, age, mon_sum, "")
         yield _send(str(card))
         return
 
@@ -43,9 +41,7 @@ def operator():
 
 
 def doctor():
-    command = yield {'text': DOCTOR_START,
-                     'reply_markup': ReplyKeyboardMarkup([[UPDATE_HISTORY], [DELETE_HISTORY],[SHOW_HISTORY],[CREATE_HISTORY],[EXIT]],
-                                                         one_time_keyboard=True)}
+    command = yield _send(DOCTOR_START,[[UPDATE_HISTORY], [DELETE_HISTORY],[SHOW_HISTORY],[CREATE_HISTORY],[EXIT]])
     if command.text == UPDATE_HISTORY:
         yield _send(DOCTOR_UPDATE_PROFILE)
     elif command.text == SHOW_HISTORY:
