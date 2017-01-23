@@ -40,6 +40,6 @@ class AIDS_bot(object):
 
 if __name__ == '__main__':
     log.basicConfig(level=log.DEBUG)
-    token = '310046588:AAGqktDy4wf71g-wpZD_H84JTJLY7nOD9b8'
+    token = '305192768:AAG0pi3IiYQj6CVnFJ9QnBoTa9fGHHhppgY'
     bot = AIDS_bot(token)
     bot.start(dialogs.login_dialog)
