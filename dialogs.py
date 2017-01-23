@@ -44,7 +44,7 @@ def operator():
 
 def doctor():
     command = yield {'text': DOCTOR_START,
-                     'reply_markup': ReplyKeyboardMarkup([[UPDATE_HISTORY], [DELETE_HISTORY],[SHOW_HISTORY],[CREATE_HISTORY]],
+                     'reply_markup': ReplyKeyboardMarkup([[UPDATE_HISTORY], [DELETE_HISTORY],[SHOW_HISTORY],[CREATE_HISTORY],[EXIT]],
                                                          one_time_keyboard=True)}
     if command.text == UPDATE_HISTORY:
         yield _send(DOCTOR_UPDATE_PROFILE)
@@ -53,7 +53,10 @@ def doctor():
     elif command.text == DELETE_HISTORY:
         yield _send(DELETE_OK)
     elif command.text == CREATE_HISTORY:
-        yield _send(CREATE_HISTORY)
+        disease = yield _send(DOCTOR_CREATE_HISTORY)
+        disease = disease.text
+        card = Card(None,None,None,disease)
+        yield _send(str(card))
     log.debug("COMMAND %s" % command)
 
 def courier():

@@ -4,6 +4,7 @@ START_MESSAGE = "Hello! Please, Log in!"
 USERS = ['operator','doctor','courier','admin']
 NEW_TEXT_OK = "Client's  history stored"
 REGISTRATION_OK = "Success! New client is registered."
+EXIT = "EXIT"
 
 #operator
 OPERATOR_START = "Hello, operator"
@@ -20,7 +21,7 @@ DOCTOR_UPDATE_PROFILE = "Enter an updated medical history: "
 DOCTOR_VIEW_PROFILE  = "Medical history of the client:"
 DOCTOR_UPDATE_TEXT_OK = "Medical history rewritten!"
 DELETE_OK = "History is deleted!"
-CREATE_HISTORY = "Please, input text of med history:"
+DOCTOR_CREATE_HISTORY = "Please, input text of med history:"
 
 #operations
 OPERATOR_BUTTON_REG_CLIENT = "New client registration"
