@@ -1,5 +1,6 @@
 import sys
-from telegram import ReplyMarkup, KeyboardButton
+import logging as log
+from telegram import ReplyKeyboardMarkup
 
 from const import *
 
@@ -11,8 +12,8 @@ def login_dialog():
     else: yield {'text': "%s %s" % (user, USER_NOT_EXIST)}
 
 def operator():
-    yield {'test': , 'reply_markup': ReplyKeyboardMarkup([[1]], one_time_keyboard=True)}
-    pass
+    command = yield {'text': OPERATOR_START, 'reply_markup': ReplyKeyboardMarkup([[OPERATOR_CLIENT_REGISTRATION],[OPERATOR_REMOVING_PROFILE]], one_time_keyboard=True)}
+    log.debug("COMMAND %s" % command)
 
 def doctor():
     pass
