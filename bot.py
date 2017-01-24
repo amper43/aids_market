@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from telegram import ReplyKeyboardMarkup
 import collections
 import logging as log
 import os
