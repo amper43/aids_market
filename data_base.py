@@ -1,5 +1,5 @@
 import redis
-#from data.card import Card
+from data.card import Card
 
 class DataBase(object):
 
@@ -19,12 +19,14 @@ class DataBase(object):
         return cls.singleton_instance
 
     def get_card(self, card_id):
-        card = self.conn.hgetall('card:%s' % card_id)
+        card_dict = self.conn.hgetall('card:%s' % card_id)
+        card = Card.card_from_dict(card_dict)
         return card
 
     def save_card(self, card):
-        card_id = self._get_id('card')
-        self.conn.hmset('card:%s' % card_id, card)
+        if not card.card_id: card_id = self._get_id('card')
+        card.set_card_id(card_id)
+        self.conn.hmset('card:%s' % card_id, card.get_card_dict())
         return card_id
 
     def add_user(self, name):

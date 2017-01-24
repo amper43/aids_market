@@ -17,6 +17,7 @@ OPERATOR_SUM =  "Input monthly payment client: "
 
 #doctor
 DOCTOR_START =  "Hello, doctor. Input ID of client: "
+DOCTOR_CHOSE_OPERATION = "Chose operation"
 DOCTOR_UPDATE_PROFILE = "Enter an updated medical history: "
 DOCTOR_VIEW_PROFILE  = "Medical history of the client:"
 DOCTOR_UPDATE_TEXT_OK = "Medical history rewritten!"

@@ -34,7 +34,7 @@ def operator():
         mon_sum = yield _send(OPERATOR_SUM)
         mon_sum = mon_sum.text
         card = Card(fio, age, mon_sum, "")
-        card_id = db.save_card(card.get_card_dict())
+        card_id = db.save_card(card)
         card.set_card_id(card_id)
         yield _send(str(card))
         return
@@ -49,7 +49,8 @@ def operator():
 
 
 def doctor():
-    command = yield _send(DOCTOR_START,[[UPDATE_HISTORY], [DELETE_HISTORY],[SHOW_HISTORY],[CREATE_HISTORY],[EXIT]])
+    client_id = yield _send(DOCTOR_START)
+    command = yield _send(DOCTOR_CHOSE_OPERATION,[[UPDATE_HISTORY], [SHOW_HISTORY], [CREATE_HISTORY], [EXIT]])
     if command.text == UPDATE_HISTORY:
         yield _send(DOCTOR_UPDATE_PROFILE)
     elif command.text == SHOW_HISTORY:
@@ -59,7 +60,9 @@ def doctor():
     elif command.text == CREATE_HISTORY:
         disease = yield _send(DOCTOR_CREATE_HISTORY)
         disease = disease.text
-        card = Card(None,None,None,disease)
+        card = db.get_card(client_id)
+        card.disease = disease
+        db.save_card(card)
         yield _send(str(card))
     log.debug("COMMAND %s" % command)
 
