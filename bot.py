@@ -31,6 +31,8 @@ class AIDS_bot(object):
             try:
                 answer = self.handlers[chat_id].send(update.message)
             except StopIteration:
+                keyboard = ReplyKeyboardMarkup([['login']], one_time_keyboard=True)
+                bot.sendMessage(chat_id=chat_id, text='logout', reply_markup=keyboard)
                 del self.handlers[chat_id]
                 return self.handle_message(bot, update)
         else:

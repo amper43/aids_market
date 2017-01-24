@@ -29,13 +29,16 @@ class DataBase(object):
         self.conn.hmset('card:%s' % card_id, card.get_card_dict())
         return card_id
 
+    def delete_card(self, card_id):
+        self.conn.delete('card:%s' % card_id)
+
     def add_user(self, name):
         user_id = self._get_id('user')
         self.conn.hmset('user:%s' % user_id, user)
         return user_id
 
     def del_user(self, user_id):
-        return self.conn.delete('user:%s' % user_id)
+        self.conn.delete('user:%s' % user_id)
 
     def _get_id(self, obj_type):
         obj_list = self.conn.keys(pattern='%s:*' % obj_type)

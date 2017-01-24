@@ -40,23 +40,37 @@ def operator():
         return
 
     if command.text == OPERATOR_REMOVING_PROFILE:
+        card_id = yield _send(OPERATOR_REMOVING_PROFILE)
+        db.delete_card(card_id)
         return
 
     if command.text == EXIT:
         return EXIT
 
-    yield {'text': 'wrong answer'}
+    yield _send(COMMAND_NOT_EXIST)
 
 
 def doctor():
     client_id = yield _send(DOCTOR_START)
     command = yield _send(DOCTOR_CHOSE_OPERATION,[[UPDATE_HISTORY], [SHOW_HISTORY], [CREATE_HISTORY], [EXIT]])
+
     if command.text == UPDATE_HISTORY:
-        yield _send(DOCTOR_UPDATE_PROFILE)
+        card = db.get_card(client_id)
+        disease = yield _send("%s\n%s\n\n%s" % (DOCTOR_VIEW_PROFILE, card.disease, DOCTOR_UPDATE_PROFILE))
+        card.disease = disease
+        db.save_card(card)
+        yield _send(DOCTOR_UPDATE_TEXT_OK)
+
     elif command.text == SHOW_HISTORY:
-        yield _send(DOCTOR_VIEW_PROFILE)
+        card = db.get_card(client_id)
+        yield _send("%s\n%s" % (DOCTOR_VIEW_PROFILE, card.disease))
+
     elif command.text == DELETE_HISTORY:
+        card = db.get_card(client_id)
+        card.disease = ""
+        db.save_card(card)
         yield _send(DELETE_OK)
+
     elif command.text == CREATE_HISTORY:
         disease = yield _send(DOCTOR_CREATE_HISTORY)
         disease = disease.text
@@ -64,7 +78,9 @@ def doctor():
         card.disease = disease
         db.save_card(card)
         yield _send(str(card))
-    log.debug("COMMAND %s" % command)
+
+    elif command.text == EXIT:
+        return EXIT
 
 def courier():
     command = yield _send(START_COURIER, [[CHECK_MESSAGE], [SHOW_TIMETABLE]])
