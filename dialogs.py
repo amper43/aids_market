@@ -17,12 +17,12 @@ def login_dialog():
     user = user.text
     if user in USERS:
         ret = None
-        while ret != 'exit':
+        while ret != EXIT:
             ret = yield from getattr(sys.modules[__name__], user)()
     else: yield _send("%s %s" % (user, USER_NOT_EXIST))
 
 def operator():
-    command = yield _send(OPERATOR_START, [[OPERATOR_CLIENT_REGISTRATION],[OPERATOR_REMOVING_PROFILE]])
+    command = yield _send(OPERATOR_START, [[OPERATOR_CLIENT_REGISTRATION],[OPERATOR_REMOVING_PROFILE], [EXIT]])
     if command.text == OPERATOR_CLIENT_REGISTRATION:
         fio = yield _send(OPERATOR_FIO)
         fio = fio.text
@@ -36,6 +36,9 @@ def operator():
 
     if command.text == OPERATOR_REMOVING_PROFILE:
         return
+
+    if command.text == EXIT:
+        return EXIT
 
     yield {'text': 'wrong answer'}
 
