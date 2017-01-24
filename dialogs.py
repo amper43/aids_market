@@ -4,6 +4,9 @@ from telegram import ReplyKeyboardMarkup
 
 from const import *
 from data.card import Card
+from data_base import DataBase
+
+db = DataBase.instance()
 
 def _send(text, keyboard=None):
 
@@ -31,6 +34,8 @@ def operator():
         mon_sum = yield _send(OPERATOR_SUM)
         mon_sum = mon_sum.text
         card = Card(fio, age, mon_sum, "")
+        card_id = db.save_card(card.get_card_dict())
+        card.set_card_id(card_id)
         yield _send(str(card))
         return
 

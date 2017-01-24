@@ -14,7 +14,15 @@ class Card(object):
         self.disease = disease
 
     def __str__(self):
-        return "%s %s %s %s" % (self.fio, self.age, self.month_sum, self.disease)
+        return "id:%s fi:%s age:%s month_sum:%s disease:%s" % (self.card_id, self.fio, self.age, self.month_sum, self.disease)
 
     def set_card_id(self, card_id):
         self.card_id = card_id
+
+    def get_card_dict(self):
+        return {
+                'fio': str(self.fio),
+                'age': str(self.age),
+                'mon_sum': str(self.month_sum),
+                'disease': str(self.disease),
+               }
