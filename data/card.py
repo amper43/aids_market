@@ -1,3 +1,5 @@
+import logging as log
+
 class Card(object):
 
     card_id = None
@@ -14,12 +16,15 @@ class Card(object):
 
     @classmethod
     def card_from_dict(cls, card_dict):
+        log.debug('card_from_dict: card_dict: %s' % card_dict)
         card_id = card_dict['id']
         fio = card_dict['fio']
         age = card_dict['age']
         month_sum = card_dict['month_sum']
         disease = card_dict['disease']
-        return Card(card_id, fio, age, month_sum, disease)
+        card = Card(fio, age, month_sum, disease)
+        card.set_card_id(card_id)
+        return card
 
 
     def __str__(self):
@@ -30,9 +35,9 @@ class Card(object):
 
     def get_card_dict(self):
         return {
-                'id': str(self.fio),
+                'id': str(self.card_id),
                 'fio': str(self.fio),
                 'age': str(self.age),
-                'mon_sum': str(self.month_sum),
+                'month_sum': str(self.month_sum),
                 'disease': str(self.disease),
                }

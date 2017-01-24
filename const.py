@@ -16,7 +16,9 @@ OPERATOR_AGE =  "Input clinet's age: "
 OPERATOR_SUM =  "Input monthly payment client: "
 
 #doctor
-DOCTOR_START =  "Hello, doctor. Input ID of client: "
+DOCTOR_START =  "Hello, doctor"
+DOCTOR_PROC =  "Work with client"
+DOCTOR_ID_INPUT = "Input ID of client: "
 DOCTOR_CHOSE_OPERATION = "Chose operation"
 DOCTOR_UPDATE_PROFILE = "Enter an updated medical history: "
 DOCTOR_VIEW_PROFILE  = "Medical history of the client:"

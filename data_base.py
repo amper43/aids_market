@@ -1,4 +1,5 @@
 import redis
+import logging as log
 from data.card import Card
 
 class DataBase(object):
@@ -9,7 +10,7 @@ class DataBase(object):
     #and have dict type
 
     def __init__(self):
-        self.conn = redis.Redis('localhost')
+        self.conn = redis.Redis('localhost', decode_responses=True)
 
     @classmethod
     def instance(cls):
@@ -19,12 +20,15 @@ class DataBase(object):
         return cls.singleton_instance
 
     def get_card(self, card_id):
+        log.debug('DataBase:get_card:card_id: %s' % card_id)
         card_dict = self.conn.hgetall('card:%s' % card_id)
+        log.debug('DataBase:get_card:card_dict: %s' % card_dict)
         card = Card.card_from_dict(card_dict)
         return card
 
     def save_card(self, card):
         if not card.card_id: card_id = self._get_id('card')
+        else: card_id = card.card_id
         card.set_card_id(card_id)
         self.conn.hmset('card:%s' % card_id, card.get_card_dict())
         return card_id
@@ -45,7 +49,7 @@ class DataBase(object):
         if not obj_list:
             obj_id = 0
         else:
-            obj_id = max([int(i.decode('utf-8').split(':')[1]) for i in obj_list]) + 1
+            obj_id = max([int(i.split(':')[1]) for i in obj_list]) + 1
         return obj_id
 
 if __name__ == '__main__':
