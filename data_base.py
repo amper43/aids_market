@@ -34,7 +34,7 @@ class DataBase(object):
         return card_id
 
     def delete_card(self, card_id):
-        self.conn.delete('card:%s' % card_id)
+        self.conn.delete(names=['card:%s' % card_id])
 
     def add_user(self, name):
         user_id = self._get_id('user')
