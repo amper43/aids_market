@@ -8,3 +8,5 @@ cd redis-stable
 make
 
 pip install redis
+
+#test
