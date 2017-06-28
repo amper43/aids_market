@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import redis
 import logging as log
 from data.card import Card
@@ -34,11 +35,12 @@ class DataBase(object):
         return card_id
 
     def delete_card(self, card_id):
-        self.conn.delete(names=['card:%s' % card_id])
+        self.conn.delete('card:%s' % card_id)
+        log.info('{} card deleted'.format(card_id))
 
     def add_user(self, name):
         user_id = self._get_id('user')
-        self.conn.hmset('user:%s' % user_id, user)
+        self.conn.hmset('user:%s' % user_id, name)
         return user_id
 
     def del_user(self, user_id):
@@ -52,10 +54,31 @@ class DataBase(object):
             obj_id = max([int(i.split(':')[1]) for i in obj_list]) + 1
         return obj_id
 
+    def get_message(self, courier_id):
+        return self.conn.get('courier:message:{}'.format(courier_id))
+
+    def set_message(self, courier_id, msg):
+        self.conn.hmset('courier:message:{}'.format(courier_id), [msg])
+
+    def get_timetable(self, courier_id):
+        return self.conn.get('courier:timetable:{}'.format(courier_id))
+
+    def set_timetable(self, courier_id, tt):
+        self.conn.hmset('courier:timetable:{}'.format(courier_id), [tt])
+
+
+
 if __name__ == '__main__':
     #simple test
+    import sys
     d = DataBase.instance()
-    c_id = d.save_card({'1': '2'})
-    c_id2 = d.save_card({'3': '4'})
-    c = d.get_card(c_id)
-    print(c)
+    method = sys.argv[1]
+
+    if len(sys.argv) > 2:
+        arg = sys.argv[2:]
+        ret = getattr(d, method)(*arg)
+        print(ret)
+        sys.exit(0)
+        
+    ret = getattr(d, method)()
+    print(ret)

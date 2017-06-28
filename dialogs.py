@@ -88,8 +88,23 @@ def doctor(sender=None):
                 yield _send(str(card))
 
 
-def courier():
-    command = yield _send(START_COURIER, [[CHECK_MESSAGE], [SHOW_TIMETABLE]])
+def courier(sender=None):
+    courier_id = yield _send('enter your id')
+    command = yield _send(START_COURIER, [[CHECK_MESSAGE], [SHOW_TIMETABLE], [EXIT]])
 
-def admin():
+    if command.text == EXIT:
+        return EXIT
+
+    while command.text != EXIT:
+        if command.text == CHECK_MESSAGE:
+            msg = db.get_message(courier_id)
+            yield _send(msg)
+        elif command.text == SHOW_TIMETABLE:
+            tt = db.get_timetable(courier_id)
+            yield _send(tt)
+
+        command = yield _send(START_COURIER, [[CHECK_MESSAGE], [SHOW_TIMETABLE], [EXIT]])
+
+
+def admin(sender=None):
     pass
