@@ -66,6 +66,14 @@ class DataBase(object):
     def set_timetable(self, courier_id, tt):
         self.conn.hmset('courier:timetable:{}'.format(courier_id), [tt])
 
+    def process_creds(self, login, password):
+        return password == self.conn.get('user:{}'.format(login, password))
+
+    def add_account(self, name, password):
+        self.conn.hmset('user:{}'.format(name), [password])
+
+    def del_account(self, name):
+        self.conn.delete('user:{}'.format(name))
 
 
 if __name__ == '__main__':

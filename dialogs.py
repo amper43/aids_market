@@ -16,8 +16,15 @@ def _send(text, keyboard=None):
     return ret
 
 def login_dialog(sender=None):
-    user = yield _send(START_MESSAGE, [[u] for u in USERS])
-    user = user.text
+    user = yield _send('Enter login:password')
+    try:
+        login, password = user.text.split(':')
+    except:
+        return _send('wrong credentials')
+    if db.process_creds(login, password):
+        user = login
+    else:
+        return _send('wrong credentials')
     if user in USERS:
         ret = None
         while ret != EXIT:
@@ -36,18 +43,20 @@ def operator(sender=None):
         card = Card(fio, age, mon_sum, "")
         card_id = db.save_card(card)
         card.set_card_id(card_id)
-        yield _send(str(card))
-        return
+        return _send(str(card))
 
     if command.text == OPERATOR_REMOVING_PROFILE:
-        card_id = yield _send(OPERATOR_REMOVING_PROFILE)
-        db.delete_card(card_id)
-        return
+        try:
+            card_id = yield _send(OPERATOR_REMOVING_PROFILE)
+            db.delete_card(card_id)
+            return _send('success')
+        except:
+            return _send('error')
 
     if command.text == EXIT:
         return EXIT
 
-    yield _send(COMMAND_NOT_EXIST)
+    return _send(COMMAND_NOT_EXIST)
 
 
 def doctor(sender=None):
@@ -107,4 +116,19 @@ def courier(sender=None):
 
 
 def admin(sender=None):
-    pass
+
+    
+    command = yield _send('admin, enter command', [['add user'], ['del user'], [EXIT]])
+
+    if command.text == EXIT:
+        return EXIT
+
+    while command.text != EXIT:
+        command.text == 'add user':
+            user = yield _send('enter user')
+            password = yield _send('enter password')
+            db.add_account(user, password)
+
+        command.text == 'del user':
+            user = yield _send('enter user')
+            db.del_account(user)
