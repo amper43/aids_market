@@ -58,19 +58,19 @@ class DataBase(object):
         return self.conn.get('courier:message:{}'.format(courier_id))
 
     def set_message(self, courier_id, msg):
-        self.conn.hmset('courier:message:{}'.format(courier_id), [msg])
+        self.conn.set('courier:message:{}'.format(courier_id), msg)
 
     def get_timetable(self, courier_id):
         return self.conn.get('courier:timetable:{}'.format(courier_id))
 
     def set_timetable(self, courier_id, tt):
-        self.conn.hmset('courier:timetable:{}'.format(courier_id), [tt])
+        self.conn.set('courier:timetable:{}'.format(courier_id), tt)
 
     def process_creds(self, login, password):
         return password == self.conn.get('user:{}'.format(login, password))
 
     def add_account(self, name, password):
-        self.conn.hmset('user:{}'.format(name), [password])
+        self.conn.set('user:{}'.format(name), password)
 
     def del_account(self, name):
         self.conn.delete('user:{}'.format(name))

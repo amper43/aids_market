@@ -29,7 +29,7 @@ def login_dialog(sender=None):
         ret = None
         while ret != EXIT:
             ret = yield from getattr(sys.modules[__name__], user)(sender)
-    else: yield _send("%s %s" % (user, USER_NOT_EXIST))
+    else: return _send("%s %s" % (user, USER_NOT_EXIST))
 
 def operator(sender=None):
     command = yield _send(OPERATOR_START, [[OPERATOR_CLIENT_REGISTRATION],[OPERATOR_REMOVING_PROFILE], [EXIT]])
@@ -124,11 +124,13 @@ def admin(sender=None):
         return EXIT
 
     while command.text != EXIT:
-        command.text == 'add user':
+        if command.text == 'add user':
             user = yield _send('enter user')
             password = yield _send('enter password')
             db.add_account(user, password)
 
-        command.text == 'del user':
+        if command.text == 'del user':
             user = yield _send('enter user')
             db.del_account(user)
+
+        command = yield _send('admin, enter command', [['add user'], ['del user'], [EXIT]])
