@@ -43,7 +43,7 @@ def operator(sender=None):
         card = Card(fio, age, mon_sum, "")
         card_id = db.save_card(card)
         card.set_card_id(card_id)
-        return _send(str(card))
+        yield _send(str(card))
 
     if command.text == OPERATOR_REMOVING_PROFILE:
         try:

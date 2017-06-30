@@ -30,7 +30,7 @@ class AIDS_bot(object):
 
         if chat_id in self.handlers:
             try:
-                print(update.message)
+                #print(update.message)
                 answer = self.handlers[chat_id].send(update.message)
             except StopIteration as e:
                 if e.value:
