@@ -3,7 +3,7 @@ import logging as log
 from telegram import ReplyKeyboardMarkup
 
 from const import *
-from data.card import Card
+#from data.card import Card
 from data_base import DataBase
 
 db = DataBase.instance()
