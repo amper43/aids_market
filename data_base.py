@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import redis
 import logging as log
-#from data.card import Card
+from data.card import Card
 
 class DataBase(object):
 
