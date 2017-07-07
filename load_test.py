@@ -1,5 +1,10 @@
+#!/usr/bin/env python
+from Queue import Queue
+import threading
+import os
 import time
 import subprocess
+import logging as log
 
 
 def operation(name):
@@ -7,7 +12,7 @@ def operation(name):
     proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                                         
 
-def loader(cls, inq, outq, errq):
+def loader(inq, outq, errq):
     while True:
         tupl = inq.get()
         if tupl is None:
@@ -73,6 +78,5 @@ if __name__ == '__main__':
     dir_path = os.path.dirname(os.path.realpath(__file__))
     f = open(os.path.join(dir_path, 'token'), 'r')
     token = f.read() #'310046588:AAGqktDy4wf71g-wpZD_H84JTJLY7nOD9b8'
-    token = token[:-1]
 
     load(map(str, range(300)), 50)
