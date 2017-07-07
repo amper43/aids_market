@@ -7,19 +7,21 @@ REGISTRATION_OK = "Success! New client is registered."
 EXIT = "EXIT"
 
 #operator
-OPERATOR_START = "Hello, operator"
+OPERATOR_START = "Hello, Operator"
 OPERATOR_CLIENT_REGISTRATION = "Input information of new client"
 OPERATOR_USER_REGISTRATION = "Input information of new system user"
 OPERATOR_REMOVING_PROFILE = "Enter ID profile you want to delete:"
 OPERATOR_FIO = "Input client's firstname and secondname: "
-OPERATOR_AGE =  "Input clinet's age: "
+OPERATOR_AGE =  "Input client's age: "
 OPERATOR_SUM =  "Input monthly payment client: "
+
+
 
 #doctor
 DOCTOR_START =  "Hello, doctor"
 DOCTOR_PROC =  "Work with client"
 DOCTOR_ID_INPUT = "Input ID of client: "
-DOCTOR_CHOSE_OPERATION = "Chose operation"
+DOCTOR_CHOSE_OPERATION = "Choose operation:"
 DOCTOR_UPDATE_PROFILE = "Enter an updated medical history: "
 DOCTOR_VIEW_PROFILE  = "Medical history of the client:"
 DOCTOR_UPDATE_TEXT_OK = "Medical history rewritten!"
@@ -33,6 +35,13 @@ OPERATOR_BUTTON_DELETE = "Remove the profile from the system"
 DOCTOR_BUTTON_SHOW_TEXT = "Show medical history of client"
 DOCTOR_BUTTON_NEW_TEXT = "Update medical history"
 DOCTOR_BUTTON_DELETE = "Delete medical history"
+OPERATOR_SHOW_ALL_CLIENTS = "Show all client's id"
+ADMIN_SHOW_ALL_USERS = "show all users"
+SHOW_ALL_CLIENTS = "Show all clinet's IDs"
+SHOW_ALL_COURIERS = "Show all courier's IDs"
+CREATE_MESSAGE = "Create message for courier"
+DELETE_CLIENT = "Delete client profile"
+SET_TIMETABLE = "Set timetable for couriers"
 
 #operator input
 REGISTRATION = "register"
@@ -58,3 +67,5 @@ INPUT_TEXT_ERROR = "Invalid input, try again"
 ID_ERROR = "This ID does not exist"
 USER_NOT_EXIST = "user not exist"
 COMMAND_NOT_EXIST = "this command is not exist"
+
+

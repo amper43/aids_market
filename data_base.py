@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import redis
 import logging as log
-from data.card import Card
+#from data.card import Card
+from card import Card
 
 class DataBase(object):
 
@@ -35,8 +36,9 @@ class DataBase(object):
         return card_id
 
     def delete_card(self, card_id):
-        self.conn.delete('card:%s' % card_id)
+        res = self.conn.delete('card:%s' % card_id)
         log.info('{} card deleted'.format(card_id))
+        return res
 
     def add_user(self, name):
         user_id = self._get_id('user')
@@ -73,7 +75,31 @@ class DataBase(object):
         self.conn.set('user:{}'.format(name), password)
 
     def del_account(self, name):
-        self.conn.delete('user:{}'.format(name))
+        return self.conn.delete('user:{}'.format(name))
+        
+    def show_all_client_ids(self):
+        client_list = self.conn.keys(pattern='card:*')
+        ar = ""
+        for i in client_list:
+            ar = ar + i[5:] + "\n"
+        return ar
+
+    def show_users(self):
+        user_list = self.conn.keys(pattern='user:*')
+        ar = ""
+        for i in user_list:
+            ar = ar + i[5:] + "\n"
+        return ar
+    
+    def courier_id_list(self):
+        id_list = self.conn.keys(pattern='courier:*')
+        ar = []
+        res = ""
+        for j in id_list:
+            ar.append(j.split(":")[2])
+        for i in set(ar):
+            res = res + "\n" + i
+        return res
 
 
 if __name__ == '__main__':
