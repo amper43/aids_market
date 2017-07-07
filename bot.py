@@ -41,8 +41,17 @@ class AIDS_bot(object):
                 return self.handle_message(bot, update)
         else:
             answer = next(self.handlers[chat_id])
+        print(update.message.location)
+        l = answer.get("location")
+        if l:
+            bot.sendMessage(chat_id=chat_id, parse_mode = "HTML", **answer)
+            bot.sendLocation(chat_id=chat_id, latitude=l[0], longitude=l[1])
+        else:
+            bot.sendMessage(chat_id=chat_id, parse_mode="HTML", **answer)
         
-        bot.sendMessage(chat_id=chat_id, **answer)
+        
+        
+        
 
 
 if __name__ == '__main__':
@@ -54,3 +63,4 @@ if __name__ == '__main__':
     token = token[:-1]
     bot = AIDS_bot(token)
     bot.start(dialogs.login_dialog)
+    

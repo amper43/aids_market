@@ -9,11 +9,11 @@ from card import Card
 
 db = DataBase.instance()
 
-def _send(text, keyboard=None):
-
+def _send(text, keyboard = None, location = None):
+    
     if keyboard:
         keyboard = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True)
-    ret = {'text': text, 'reply_markup': keyboard}
+    ret = {'text': text, 'reply_markup': keyboard, 'location': location}
     return ret
 
 def login_dialog(sender=None):
@@ -60,7 +60,7 @@ def operator(sender=None):
     if command.text == SHOW_ALL_CLIENTS:
         client_list = db.show_all_client_ids()
         if client_list != "":
-            yield _send("CLIENT'S ID LIST: \n" + client_list)
+            yield _send("<i>CLIENT'S ID LIST:</i> \n" + client_list)
         else:
             yield _send("No client's profiles in system!")
             
@@ -149,7 +149,7 @@ def courier(sender=None):
             yield _send(msg)
         elif command.text == SHOW_TIMETABLE:
             tt = db.get_timetable(courier_id.text)
-            yield _send(tt)
+            yield _send(tt, location=(59.9524056,30.3006592))
         command = yield _send(START_COURIER, [[CHECK_MESSAGE], [SHOW_TIMETABLE], [EXIT]])
     return EXIT
 
