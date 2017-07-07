@@ -8,8 +8,9 @@ import logging as log
 
 
 def operation(name):
-    command = 'curl -s -X POST https://api.telegram.org/bot{}/start'.format(token)
+    command = './load_action.sh'
     proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc.communicate()
                                         
 
 def loader(inq, outq, errq):
@@ -23,7 +24,7 @@ def loader(inq, outq, errq):
         start = time.time()
         operation(name)
         duration = time.time() - start
-        outq.put(duration)
+        outq.put((duration, name))
         inq.task_done()
 
     return
@@ -33,10 +34,13 @@ def load(name_list, con_num):
     (outq, errq,) = run_concurrently(loader, name_list, con_num)
 
     times = []
+    names = []
     while not outq.empty():
-        i = outq.get()
-        times.append(i)
+        t, n = outq.get()
+        times.append(t)
+        names.append(n)
         outq.task_done()
+    return times
 
 def run_concurrently(func, seq, threads_number):
     # Accepts:
@@ -65,7 +69,7 @@ def run_concurrently(func, seq, threads_number):
         inq.put(None)
 
     # Wait until worker threads are done to exit, then terminate
-    inq.join()
+    #inq.join()
 
     for worker in workers:
         worker.join()
@@ -79,4 +83,11 @@ if __name__ == '__main__':
     f = open(os.path.join(dir_path, 'token'), 'r')
     token = f.read() #'310046588:AAGqktDy4wf71g-wpZD_H84JTJLY7nOD9b8'
 
-    load(map(str, range(300)), 50)
+    glob_avg = []
+    for i in range(50):
+        stat = load(map(str, range(100)), i+1)
+        avg = sum(stat)/len(stat)
+        glob_avg.append((i+1, avg))
+
+    import pprint
+    pprint.pprint(glob_avg)
